@@ -11,3 +11,10 @@
   margin-top: 0;
   color: #fff;
 }
+
+.left-col {
+    width: 23%;
+    position: fixed;
+    opacity: .5;
+    height: 100%;
+  }
