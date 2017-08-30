@@ -4,7 +4,7 @@
   margin-bottom: 30px;
   font-size: 24px;
   text-align: left;
-  background-color: #6f5499;
+  background-color: #3f617d;
 }
 
 .main-header h1 {
@@ -12,9 +12,36 @@
   color: #fff;
 }
 
-.left-col {
-    width: 23%;
-    position: fixed;
-    opacity: .5;
-    height: 100%;
-  }
+.panel {
+    display: block;
+    margin: 0 auto 2rem;
+    border-radius: 3px;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: all .4s ease;
+}
+
+.panel-heading {
+  padding-bottom: 20px;
+}
+
+.intrude-less {
+  margin-left: 0;
+  opacity: .8;
+}
+
+.words-pannel {
+  margin-top: 10px;
+}
+
+.avatar {
+  height: 48px;
+  width: 48px;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+  border-radius: 10px;
+  float: left;
+  margin-right: 18px;
+  cursor: default;
+}
