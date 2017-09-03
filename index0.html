@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Note_js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="./public/style.css">
+  <script src="./public/vue.min.js"></script>
+  <script src="./public//jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="main-header">
+      <div class="container">
+        <h1>JavaScript编程入门</h1>
+      </div>
+    </div>
+    <div class="container">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">我的心里话</h3>
+        </div>
+        <div class="panel-body">
+            <div class="media">
+              <div class="media-body">
+                <button type="button" onClick=nextOne()>下一条</button>
+                <button type="button" onClick=backOne()>上一条</button>
+                <h4 class="media-heading">
+                  {{ itemName }}
+                </h4>
+                  {{ itemWords }}
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+  // vue官网： https://cn.vuejs.org/v2/guide/
+  // 初始化Vue
+  var i = 1;
+  var app = new Vue({
+    el: '#app',   // #app 和html中div#id的 app 对应
+    data: {
+      itemName:"default", // 变量wordsList可以在html使用
+      itemWords:"default"
+    },
+    methods: {
+      getInfo() {
+        var that = this;
+        $.getJSON("all_words.json", function(data) {
+          that.itemName=data[i]["name"]
+          that.itemWords=data[i]["words"]
+          })
+      }
+    }
+  });
+  app.getInfo();
+  function nextOne() {
+    i = i + 1;
+    app.getInfo();
+  };
+  function backOne() {
+    i = i - 1;
+    app.getInfo();
+  }
+
+</script>
+</html>
