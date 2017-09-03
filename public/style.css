@@ -46,6 +46,10 @@
   cursor: default;
 }
 
+.github {
+  color: #333;
+}
+
 .footer {
   margin-bottom: 30px;
 }
