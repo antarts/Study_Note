@@ -1,5 +1,4 @@
 (function(global) {
-
     // var jsonfile = require('jsonfile');
 
     // var loadPathString = './public/all_words.json';
@@ -7,6 +6,7 @@
     // var wordsList = jsonfile.readFileSync(loadPathString)
 
     // console.log(wordsList);
+
     var wordsList = [ 
         {"avatar":"http://tva2.sinaimg.cn/crop.558.0.1143.1143.180/670e76acgw1ehgchgijn2j21kw0vyqrf.jpg","name": "Andrea","words":"运用逻辑优势，开启业余程序员大门！"
         },{"avatar":"https://ws3.sinaimg.cn/large/006tNc79ly1fig6fhvtbvj30zk0zkn4f.jpg","name":"周泠秋","words":"在人们看来编程是一件很难的事，但是正因为难做起来才有意思啊"
@@ -167,7 +167,7 @@
         },{"avatar":"https://ws1.sinaimg.cn/large/006tNc79gy1fidieqkz6hj30hs0hsq4m.jpg","name":"朱宁宁","words":"希望自己和孩子都不被现实世界限制，走向自由"
         },{"avatar":"https://github.com/fluidicon.png","name":"朱婷","words":"希望后续工作能够看懂开发写的代码"
         },{"avatar":"http://chuantu.biz/t5/164/1502191686x2890149518.jpg","name":"Eugene","words":"相信未来不懂编程就像以前的文盲，想活在未来。"
-        }]        
+        }];
 
     global.wordsList = wordsList;
 })(this);
