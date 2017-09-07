@@ -55,13 +55,36 @@
     </div>
     <div class="container">
       <div class="col-md-4">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">课程信息</h3>
+          </div>
+          <div class="panel-body">
+            <h4>{{ courseInfo.title }}</h4>
+            <p>讲师: <span>{{ courseInfo.teacher }}</span></p>
+            <div class="item">
+              <img class="img-circle" v-bind:src="courseInfo.teacherAvatar" style="width: 120px;"></img>
+            </div>
+            <p class="subtitle"></p>
+            <nav id="main-nav">
+
+            </nav>
+            <nav id="sub-nav">
+              <div class="social">
+                <a class="github" href="https://github.com/xugy0926" title="GitHub"><i class="fa fa-github fa-2x"></i></a>
+              </div>
+            </nav>
+          </div>
+        </div>
+
         <div class="panel panel-default" id="about-me">
           <div class="panel-heading">
             <h3 class="panel-title">小组成员</h3>
           </div>
           <div class="panel-body">
-            <div class="profilepic">
-              <img src="https://s3.amazonaws.com/logdown-production/system/blog/21331/og_image/WechatIMG40.png" alt="Profile Picture" style="width: 60px;">
+            <div class="item">
+              <img class="img-circle" src="https://s3.amazonaws.com/logdown-production/system/blog/21331/og_image/WechatIMG40.png" alt="Profile Picture" style="width: 120px;">
             </div>
             <h3><a href="https://github.com/antarts"> Antarts</a></h3>
             <p class="subtitle"></p>
@@ -77,23 +100,58 @@
             </nav>
           </div>
         </div>
+
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">JavaScript编程入门</h3>
+            <h3 class="panel-title">课程项目</h3>
           </div>
           <div class="panel-body">
             <li class="list-group-item">
               <a href="https://xugy0926.github.io/getting-started-with-javascript/">
-              新生大学JS编程入门项目[getting-started-with-javascript]
+                <i class="fa fa-github" aria-hidden="true"></i> getting-started-with-javascript
             </a>
             </li>
             <li class="list-group-item">
               <a href="https://github.com/xugy0926/words-from-the-heart">
-              新生大学JS编程入门心里话[getting-started-with-javascript]
+                <i class="fa fa-github" aria-hidden="true"></i> words-from-the-heart
             </a>
             </li>
           </div>
         </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">GIT & GITHUB</h3>
+          </div>
+          <div class="panel-body">
+            <li class="list-group-item" v-for="item in gitTopics">
+              <a :href="item.url">{{ item.title }}</a>
+            </li>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">PPT</h3>
+          </div>
+          <div class="panel-body">
+            <li class="list-group-item" v-for="item in ppt">
+              <a :href="item.url">{{ item.title }}</a>
+            </li>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">课程的技术文档</h3>
+          </div>
+          <div class="panel-body">
+            <li class="list-group-item" v-for="item in topics">
+              <a :href="item.url">{{ item.title }}</a>
+            </li>
+          </div>
+        </div>
+
       </div>
 
       <div class="col-md-8">
@@ -126,7 +184,7 @@
           </div>
           <div class="panel-body">
             <div class="words-pannel" v-for="item in wordsList">
-              <div class="media">
+              <!-- <div class="media">
                 <div class="media-left">
                   <a href="#">
                   <img class="media-object avatar" v-bind:src="item.avatar" alt="...">
@@ -138,7 +196,23 @@
                   </h4>
                   {{ item.words }}
                 </div>
+              </div> -->
+
+              <div class="item active">
+                <blockquote>
+                  <div class="row">
+                    <div class="col-sm-3 text-center">
+                      <img class="img-circle" v-bind:src="item.avatar" alt="..." style="width: 125px; height: 125px;">
+                    </div>
+                    <div class="col-sm-9">
+                      <p>{{ item.words }}</p>
+                      <small>{{ item.name }}</small>
+                    </div>
+                  </div>
+                </blockquote>
               </div>
+              <hr>
+
             </div>
           </div>
         </div>
@@ -171,7 +245,11 @@
       wordsList: [],
       myName: '',
       myAccount: '',
-      myContent: ''
+      myContent: '',
+      gitTopics: [],
+      ppt: [],
+      topics: [],
+      courseInfo: {}
     },
     methods: {
       //   getInfo() {
@@ -206,11 +284,33 @@
       submitData: function () {
         app.sendData();
         alert('send successed!')
+      },
+      getTopics: function () {
+        axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/course/1/catelog')
+        .then(function (response) {
+          app.gitTopics = response.data.catelog.gitTopicsList;
+          app.ppt = response.data.catelog.pptList;
+          app.topics = response.data.catelog.topicsList;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+      getCourseInfo: function () {
+        axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/course/1/detail')
+        .then(function (response) {
+          app.courseInfo = response.data.courseInfo;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       }
     }
   });
   // app.getInfo();
   app.fetchData();
+  app.getTopics();
+  app.getCourseInfo();
 
 </script>
 

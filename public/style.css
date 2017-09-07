@@ -62,7 +62,11 @@
   margin-top: 10px;
 }
 
-.avatar {
+.list-group-item {
+  background-color: #fafafa;
+}
+
+/*.avatar {
   height: 48px;
   width: 48px;
   display: inline-block;
@@ -72,6 +76,22 @@
   float: left;
   margin-right: 18px;
   cursor: default;
+}*/
+
+.item blockquote {
+  border-left: none;
+  margin: 0;
+}
+
+.item blockquote img {
+  margin-left: -26px;
+}
+
+.item blockquote p:before {
+  content: "\f10d";
+  font-family: 'Fontawesome';
+  float: left;
+  margin-right: 10px;
 }
 
 .github , .footer a {
