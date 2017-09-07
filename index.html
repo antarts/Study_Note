@@ -7,11 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" href="./public/style.css">
-  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="./public/vue.min.js"></script>
   <script src="./public/index.js"></script>
   <script src="./public/jquery-3.2.1.min.js"></script>
   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
 </head>
 
 <body>
@@ -47,13 +48,13 @@
         <p>学习中犯过的错、踩过得坑，把它们都记录下来，让自己的成长有迹可循。世上没有白走的路，每一步，都算数。</p></n><p>遇到困难别害怕，当你打败它的之后，你离高手又近了一步！</p>
       </div>
     </div>
-    <div class="container" id="about-me">
-     <div class="col-md-4">
-      <div class="panel panel-default">
+    <div class="container">
+      <div class="col-md-4">
+        <div class="panel panel-default" id="about-me">
         <div class="panel-heading">
           <h3 class="panel-title">小组成员</h3>
         </div>
-      <div class="panel-body">
+        <div class="panel-body">
           <div class="profilepic">
             <img src="https://s3.amazonaws.com/logdown-production/system/blog/21331/og_image/WechatIMG40.png" alt="Profile Picture" style="width: 60px;">
           </div>
@@ -69,11 +70,8 @@
               <a class="github" href="https://github.com/antarts" title="GitHub"><i class="fa fa-github fa-2x"></i></a>
             </div>
           </nav>
-      </div>
-    </div>
-    </div>
-
-      <div class="col-md-8">
+        </div>
+        </div>
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">JavaScript编程入门</h3>
@@ -91,9 +89,35 @@
             </li>
           </div>
         </div>
+    </div>
+
+      <div class="col-md-8">
+        <div class="panel panel-default" id="wordsToTeacher">
+          <div class="panel-heading">
+            <h3 class="panel-title">有话对老师说</h3>
+          </div>
+          <div class="panel-body">
+            <div class="media">
+            <p>你的大名:</p>
+              <input v-model="myName" placeholder="真实姓名">
+            </div>
+            <div class="media">
+              <p>新生大学注册时用的手机号或邮箱:</p>
+              <input v-model="myAccount" placeholder="手机号或邮箱">
+            </div>
+            <div class="media">
+              <span>对老师说的话:</span>
+              <br>
+              <textarea v-model="myContent" placeholder="支持Markdown格式..."></textarea>
+            </div>
+            <div>
+              <button v-on:click="submitData">提交</button>
+            </div>
+          </div>
+        </div>
         <div class="panel panel-default" id="heart-words">
         <div class="panel-heading">
-          <h3 class="panel-title">我的心里话</h3>
+          <h3 class="panel-title">学习心愿</h3>
         </div>
         <div class="panel-body">
           <div class="words-pannel" v-for="item in wordsList">
@@ -138,17 +162,49 @@
     var app = new Vue({
       el: '#app',   // #app 和html中div#id的 app 对应
       data: {
-        wordsList: wordsList // 变量wordsList可以在html使用
-      }  //,
-      // methods: {
+        // wordsList: wordsList // 变量wordsList可以在html使用
+        wordsList: [],
+        myName: '',
+        myAccount: '',
+        myContent: ''
+      },
+      methods: {
       //   getInfo() {
       //     var that = this;
       //     $.getJSON("public/all_words.json", function(data) {
       //       that.wordsList = data;
       //       })
       //   }
-      // }
+        fetchData: function() {
+          axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/course/1/words')
+            .then(function (response) {
+              app.wordsList = response.data.words;
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        sendData: function() {
+          axios.post('https://js.xinshengdaxue.com/api/v1/learnJS/sayToMe',
+            {
+              name: app.myName,
+              account: app.myAccount,
+              content: app.myContent
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .caatch(function (error) {
+              console.log(error);
+            })
+        },
+        submitData: function() {
+          app.sendData();
+          alert('send successed!')
+        }
+      }
     });
     // app.getInfo();
+    app.fetchData();
 </script>
 </html>
