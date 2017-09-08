@@ -184,19 +184,6 @@
           </div>
           <div class="panel-body">
             <div class="words-pannel" v-for="item in wordsList">
-              <!-- <div class="media">
-                <div class="media-left">
-                  <a href="#">
-                  <img class="media-object avatar" v-bind:src="item.avatar" alt="...">
-                </a>
-                </div>
-                <div class="media-body">
-                  <h4 class="media-heading">
-                    {{ item.name }}
-                  </h4>
-                  {{ item.words }}
-                </div>
-              </div> -->
 
               <div class="item active">
                 <blockquote>
@@ -243,13 +230,13 @@
     data: {
       // wordsList: wordsList // 变量wordsList可以在html使用
       wordsList: [],
-      myName: '',
-      myAccount: '',
-      myContent: '',
       gitTopics: [],
       ppt: [],
       topics: [],
-      courseInfo: {}
+      courseInfo: {},
+      myName: '',
+      myAccount: '',
+      myContent: ''
     },
     methods: {
       //   getInfo() {
@@ -268,6 +255,7 @@
           });
       },
       sendData: function () {
+        var vm = this;
         axios.post('https://js.xinshengdaxue.com/api/v1/learnJS/sayToMe',
           {
             name: app.myName,
@@ -275,6 +263,14 @@
             content: app.myContent
           })
           .then(function (response) {
+            if (response.status === 200 ) {
+              app.myName = response.data.name;
+              app.myAccount = response.data.account;
+              app.myContent = response.data.content;
+              vm.myName = '';
+              vm.myAccount = '';
+              vm.myContent = '';
+            }
             console.log(response);
           })
           .caatch(function (error) {
@@ -283,7 +279,7 @@
       },
       submitData: function () {
         app.sendData();
-        alert('send successed!')
+        // alert('send successed!')
       },
       getTopics: function () {
         axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/course/1/catelog')
