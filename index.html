@@ -267,6 +267,7 @@
               app.myName = response.data.name;
               app.myAccount = response.data.account;
               app.myContent = response.data.content;
+              alert('send successed!');
               vm.myName = '';
               vm.myAccount = '';
               vm.myContent = '';
@@ -279,7 +280,6 @@
       },
       submitData: function () {
         app.sendData();
-        // alert('send successed!')
       },
       getTopics: function () {
         axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/course/1/catelog')
