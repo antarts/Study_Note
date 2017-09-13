@@ -82,20 +82,20 @@
           <div class="panel-heading">
             <h3 class="panel-title">小组成员</h3>
           </div>
-          <div class="panel-body">
+          <div class="panel-body" v-for="item in teamMember">
             <div class="item">
-              <img class="img-circle" src="https://s3.amazonaws.com/logdown-production/system/blog/21331/og_image/WechatIMG40.png" alt="Profile Picture" style="width: 120px;">
+              <img class="img-circle" v-bind:src="item.avatar" alt="..." style="width: 120px; height: 120px;">
             </div>
-            <h3><a href="https://github.com/antarts"> Antarts</a></h3>
+            <h4>{{ item.name }}</h4>
             <p class="subtitle"></p>
             <nav id="main-nav">
               <section class="aboutme">
-                <p>一个以成长为刚需的普通人</p>
+                <p>{{ item.words }}</p>
               </section>
             </nav>
             <nav id="sub-nav">
               <div class="social">
-                <a class="github" href="https://github.com/antarts" title="GitHub"><i class="fa fa-github fa-2x"></i></a>
+                <a class="github" :href="item.github" title="Github"><i class="fa fa-github fa-2x"></i></a>
               </div>
             </nav>
           </div>
@@ -225,6 +225,57 @@
 <script>
   // vue官网： https://cn.vuejs.org/v2/guide/
   // 初始化Vue
+  var teamMember = [
+  {
+    "name": "吴魁拼",
+    "avatar": "https://s3.amazonaws.com/logdown-production/system/blog/21331/og_image/WechatIMG40.png",
+    "words": "一个以成长为刚需的普通人",
+    "github": "https://github.com/antarts"
+  },
+  {
+    "name": "孙立宇",
+    "avatar": "",
+    "words": "",
+    "github": ""
+  },
+  {
+    "name": "东城",
+    "avatar": "",
+    "words": "",
+    "github": ""
+  },
+  {
+    "name": "汤宣洋",
+    "avatar": "",
+    "words": "",
+    "github": ""
+  },
+  {
+    "name": "赵凯莉",
+    "avatar": "",
+    "words": "",
+    "github": ""
+  },
+  {
+    "name": "曾金麟",
+    "avatar": "",
+    "words": "",
+    "github": ""
+  },
+  {
+    "name": "闵东泉",
+    "avatar": "",
+    "words": "",
+    "github": ""
+  },
+  {
+    "name": "唐礼晨",
+    "avatar": "",
+    "words": "",
+    "github": ""
+  }
+];
+
   var app = new Vue({
     el: '#app',   // #app 和html中div#id的 app 对应
     data: {
@@ -236,7 +287,8 @@
       courseInfo: {},
       myName: '',
       myAccount: '',
-      myContent: ''
+      myContent: '',
+      teamMember: teamMember
     },
     methods: {
       //   getInfo() {
