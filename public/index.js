@@ -169,57 +169,5 @@
         },{"avatar":"http://chuantu.biz/t5/164/1502191686x2890149518.jpg","name":"Eugene","words":"相信未来不懂编程就像以前的文盲，想活在未来。"
         }];
 
-        var teamMember = [
-            {
-              "name": "吴魁拼",
-              "avatar": "https://s3.amazonaws.com/logdown-production/system/blog/21331/og_image/WechatIMG40.png",
-              "words": "一个以成长为刚需的普通人",
-              "github": "https://github.com/antarts"
-            },
-            {
-              "name": "孙立宇",
-              "avatar": "https://ws4.sinaimg.cn/large/006tKfTcgy1filwvfj0vbj30u00k0n05.jpg",
-              "words": "生命是一条飞速前进的路，你不知道下一个转弯会遇到什么。对于我，JavaScript，是弯道、、、上的惊喜，A serendipity",
-              "github": "https://github.com/Darrensun111"
-            },
-            {
-              "name": "东城",
-              "avatar": "",
-              "words": "",
-              "github": ""
-            },
-            {
-              "name": "汤宣洋",
-              "avatar": "https://avatars1.githubusercontent.com/u/16713557?v=4&u=166356ef5dd53744cb3bd878a2a682268d5ad551&s=400",
-              "words": "学习JavaScript的心愿，希望成为一名能撸得了代码的产品经理O(∩_∩)O哈哈~",
-              "github": "https://github.com/skyxc"
-            },
-            {
-              "name": "赵凯莉",
-              "avatar": "",
-              "words": "希望我能从中发现很多好玩有趣的事情！",
-              "github": "https://github.com/Luckary"
-            },
-            {
-              "name": "曾金麟",
-              "avatar": "https://ws4.sinaimg.cn/large/006tKfTcgy1fj6r141ekij30b40b40v2.jpg",
-              "words": "学习编程思维，做出炫酷的网站，转行做软件工程师！",
-              "github": "https://github.com/kinglinxinsen"
-            },
-            {
-              "name": "闵东泉",
-              "avatar": "https://raw.githubusercontent.com/wiki/mdqsky/words-from-the-heart/xdjs-portrait.jpg",
-              "words": "学习编程，获得新生！",
-              "github": "https://github.com/ashlee-gaskins"
-            },
-            {
-              "name": "唐黎成",
-              "avatar": "https://ws4.sinaimg.cn/large/006tNc79gy1fieezsimgnj30lk0lk7wh.jpg",
-              "words": "正在学习ruby on rails ，想通过学习JS来完善对编程的认知边界，同时补充一些知识技能。",
-              "github": "https://github.com/lichen19844"
-            }
-          ];
-
     global.wordsList = wordsList;
-    global.teamMember = teamMember;
 })(this);
