@@ -172,7 +172,7 @@
         var teamMember = [
             {
               "name": "吴魁拼",
-              "avatar": "https://s3.amazonaws.com/logdown-production/system/blog/21331/og_image/WechatIMG40.png",
+              "avatar": "https://ws4.sinaimg.cn/large/006tNc79gy1fickawwmvxj30ou0oudhc.jpg",
               "words": "一个以成长为刚需的普通人",
               "github": "https://github.com/antarts"
             },
