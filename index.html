@@ -162,19 +162,19 @@
           <div class="panel-body">
             <div class="media">
               <p>姓名:</p>
-              <input v-model="myName" placeholder="填写真实姓名">
+              <input class="form-control" v-model="myName" placeholder="填写真实姓名">
             </div>
             <div class="media">
               <p>验证:(提示：新生大学注册用的手机号或邮箱)</p>
-              <input v-model="myAccount" placeholder="输入手机号或邮箱">
+              <input class="form-control" v-model="myAccount" placeholder="输入手机号或邮箱">
             </div>
             <div class="media">
               <span>对老师说的话:</span>
               <br>
-              <textarea v-model="myContent" placeholder="支持Markdown格式..."></textarea>
+              <textarea class="form-control" v-model="myContent" placeholder="支持Markdown格式..."></textarea>
             </div>
-            <div>
-              <button v-on:click="submitData">提交</button>
+            <div class="media">
+              <button class="btn btn-danger" v-on:click="submitData">提交</button>
             </div>
           </div>
         </div>
