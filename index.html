@@ -13,6 +13,7 @@
   <script src="./public/jquery-3.2.1.min.js"></script>
   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
+  <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.full.min.js"></script>
 </head>
 
 <body>
@@ -130,7 +131,7 @@
           </div>
         </div>
 
-        <div class="panel panel-default">
+        <!-- <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">PPT</h3>
           </div>
@@ -139,7 +140,7 @@
               <a :href="item.url">{{ item.title }}</a>
             </li>
           </div>
-        </div>
+        </div> -->
 
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -178,6 +179,16 @@
             </div>
           </div>
         </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ message }}</h3>
+          </div>
+          <div class="panel-body">
+            <bar-chart></bar-chart>
+          </div>
+        </div>
+
         <div class="panel panel-default" id="heart-words">
           <div class="panel-heading">
             <h3 class="panel-title">学习心愿</h3>
@@ -232,13 +243,16 @@
       // wordsList: wordsList // 变量wordsList可以在html使用
       wordsList: [],
       gitTopics: [],
-      ppt: [],
+      //  ppt: [],
       topics: [],
       courseInfo: {},
       myName: '',
       myAccount: '',
       myContent: '',
-      teamMember: teamMember
+      teamMember: teamMember,
+      message: 'Project: Getting-started-with-javascript #Contributions',
+      contributors: [],
+      contributions: []
     },
     methods: {
       //   getInfo() {
@@ -265,7 +279,7 @@
             content: app.myContent
           })
           .then(function (response) {
-            if (response.status === 200 ) {
+            if (response.status === 200) {
               app.myName = response.data.name;
               app.myAccount = response.data.account;
               app.myContent = response.data.content;
@@ -285,30 +299,68 @@
       },
       getTopics: function () {
         axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/course/1/catelog')
-        .then(function (response) {
-          app.gitTopics = response.data.catelog.gitTopicsList;
-          app.ppt = response.data.catelog.pptList;
-          app.topics = response.data.catelog.topicsList;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+          .then(function (response) {
+            app.gitTopics = response.data.catelog.gitTopicsList;
+            // app.ppt = response.data.catelog.pptList;
+            app.topics = response.data.catelog.topicsList;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       },
       getCourseInfo: function () {
         axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/course/1/detail')
-        .then(function (response) {
-          app.courseInfo = response.data.courseInfo;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+          .then(function (response) {
+            app.courseInfo = response.data.courseInfo;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+
+      getGithubData: function () {
+        var vm = this;
+        axios.get('https://api.github.com/repos/xugy0926/getting-started-with-javascript/contributors')
+          .then(function (response) {
+            // contributors: [];
+            // contributions: [];
+            for (var i = 0; i < response.data.length; i++) {
+              vm.contributors.push(response.data[i].login);
+              vm.contributions.push(response.data[i].contributions);
+            }
+            app.contributors = vm.contributors;
+            app.contributions = vm.contributions;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       }
+
     }
   });
+
+
+  Vue.component('bar-chart', {
+    extends: VueChartJs.Bar,
+    mounted() {
+      this.renderChart({
+        labels: app.contributors,
+        datasets: [
+          {
+            label: 'Commits',
+            backgroundColor: '#fb8532',
+            data: app.contributions
+          }
+        ]
+      }, { responsive: true, maintainAspectRatio: false })
+    }
+  })
+
   // app.getInfo();
   app.fetchData();
   app.getTopics();
   app.getCourseInfo();
+  app.getGithubData();
 
 </script>
 
