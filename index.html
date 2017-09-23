@@ -14,6 +14,7 @@
   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
   <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.8.0/github-markdown.css"></script>
 </head>
 
 <body>
@@ -35,8 +36,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#heart-words">心里话<span class="sr-only">(current)</span></a></li>
-            <li><a href="#about-me">关于小组</a></li>
+            <li><a href="#heart-words">不忘初心<span class="sr-only">(current)</span></a></li>
+            <li><a href="#about-team">关于小组</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="https://js.xinshengdaxue.com">新大JS</a></li>
@@ -79,7 +80,7 @@
           </div>
         </div>
 
-        <div class="panel panel-default" id="about-me">
+        <div class="panel panel-default" id="about-team">
           <div class="panel-heading">
             <h3 class="panel-title">小组成员</h3>
           </div>
@@ -156,6 +157,16 @@
       </div>
 
       <div class="col-md-8">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ message }}</h3>
+          </div>
+          <div class="panel-body">
+            <bar-chart></bar-chart>
+          </div>
+        </div>
+
         <div class="panel panel-default" id="wordsToTeacher">
           <div class="panel-heading">
             <h3 class="panel-title">有话对老师说</h3>
@@ -182,16 +193,25 @@
 
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">{{ message }}</h3>
+            <h3 class="panel-title">他们对老师说</h3>
           </div>
-          <div class="panel-body">
-            <bar-chart></bar-chart>
+          <div class="panel-body markdown-body">
+            <div class="well" v-for="item in contentData">
+                <strong class="pull-left primary-font">{{ item.name }}</strong>
+                <small class="pull-right text-muted">
+                   <span class="glyphicon glyphicon-time"></span> {{ item.create_at }}
+                 </small>
+                <hr>
+                <div class="list-unstyled ui-sortable">
+                <div v-html="item.content"></div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="panel panel-default" id="heart-words">
           <div class="panel-heading">
-            <h3 class="panel-title">学习心愿</h3>
+            <h3 class="panel-title">不忘初心</h3>
           </div>
           <div class="panel-body">
             <div class="words-pannel" v-for="item in wordsList">
@@ -249,6 +269,7 @@
       myName: '',
       myAccount: '',
       myContent: '',
+      contentData: [],
       teamMember: teamMember,
       message: 'Project: Getting-started-with-javascript #Contributions',
       contributors: [],
@@ -334,6 +355,16 @@
           .catch(function (error) {
             console.log(error);
           });
+      },
+
+      getContentData: function () {
+        axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/sayToMe')
+          .then(function (response) {
+            app.contentData = response.data.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       }
 
     }
@@ -341,26 +372,27 @@
 
 
   Vue.component('bar-chart', {
-    extends: VueChartJs.Bar,
-    mounted() {
-      this.renderChart({
-        labels: app.contributors,
-        datasets: [
-          {
-            label: 'Commits',
-            backgroundColor: '#fb8532',
-            data: app.contributions
-          }
-        ]
-      }, { responsive: true, maintainAspectRatio: false })
-    }
-  })
+  extends: VueChartJs.Bar,
+  mounted () {
+    this.renderChart({
+      labels: app.contributors,
+      datasets: [
+        {
+          label: 'Commits',
+          backgroundColor: '#fb8532',
+          data: app.contributions
+        }
+      ]
+    }, {responsive: true, maintainAspectRatio: false})
+  }
+})
 
   // app.getInfo();
   app.fetchData();
   app.getTopics();
   app.getCourseInfo();
   app.getGithubData();
+  app.getContentData();
 
 </script>
 
