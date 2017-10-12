@@ -27,3 +27,6 @@
 
 ---
 
+### vue生命周期说明
+
+[Vue生命周期图示](https://cn.vuejs.org/images/lifecycle.png)
