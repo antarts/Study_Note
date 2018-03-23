@@ -21,19 +21,24 @@
       <!--- TODO: 如何把 menu 抽离成组件 -->
       <div class="col-md-1">
         <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-          <button type="button" class="btn btn-secondary" v-on:click="onSelected()" v-for="item in menus">{{ item.text }}</button>
+          <button type="button" class="btn btn-secondary" v-on:click="onSelected()" v-for="item in items">{{ item.text }}</button>
         </div>
       </div>
+
+      <div class="col-md-2">
+          <my-component></my-component>
+        </div>
+
       <!-- TODO: 如何把这部分抽离成一个 task-list 组件 -->
-      <div class="col-md-6" v-if="currentMenuTag === 'working'">
+      <div class="col-md-6" v-if="currentMenuTagStatus === false">
         <div class="list-group">
-          <task-item v-bind:item="item" v-bind:tag="'working'" v-for="item in tasks"></task-item>
+          <task-item v-bind:item="item" v-bind:tag="false" v-for="item in tasks"></task-item>
         </div>
       </div>
 
       <div class="col-md-6" v-else>
         <div class="list-group">
-          <task-item v-bind:item="item" v-bind:tag="'completed'" v-for="item in tasks"></task-item>
+          <task-item v-bind:item="item" v-bind:tag="true" v-for="item in tasks"></task-item>
         </div>
       </div>
     </div>
@@ -65,14 +70,18 @@
     }
   })
 
+  var Child = {
+    template: `<div>A custom compontent!</div>`
+  }
+
   var tasks = function () {
     let tasks = [];
     for (let i = 0; i < 10; i++) {
       tasks.push({
         title: 'task' + (i + 1),
         content: 'content' + (i + 1),
-        tag: 'working',
-        completed: false,
+        tag: false,
+        completed: true,
         createAt: (new Date()).toString()
       })
     }
@@ -82,16 +91,17 @@
   var app = new Vue({
     el: '#app',
     data: {
-      menus: [{
-        tag: 'working',
+      items: [{
+        tag: false,
         text: '未完成'
       },
       {
-        tag: 'completed',
+        tag: true,
         text: '完成'
       }],
-      currentMenuTag: '',
-      tasks: tasks
+      currentMenuTagStatus: false,
+      tasks: tasks,
+      isShow: true
     },
     methods: {
       onSelected(tag) {
@@ -100,7 +110,10 @@
       onCompleted() {
 
       }
+    },
+    components: {
+      'my-component': Child
     }
   });
-  app.currentMenuTag = app.menus[0].tag;
+  app.currentMenuTagStatus = app.menus[0].tag;
 </script>
