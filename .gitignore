@@ -4,3 +4,5 @@ npm-debug.log
 .vscode/
 .scantxt.txt
 *~
+sample/webapp2/node_modules
+sample/webapp/node_modules
