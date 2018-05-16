@@ -66,7 +66,7 @@ router.get('/posts', function(req, res, next) {
     if (err) {
       next(err);
     } else {
-      res.json({ success: true, postsList: posts });
+      res.json({ postsList: posts });
     }
   });
 });
@@ -104,7 +104,7 @@ router.get('/posts/:id', function(req, res, next) {
 
 /* POST edit posts */
 router.patch('/posts/:id', function(req, res, next) {
-  var id = req.body.id;
+  var id = req.params.id;
   var title = req.body.title;
   var content = req.body.content;
 
@@ -112,7 +112,7 @@ router.patch('/posts/:id', function(req, res, next) {
     if (err) {
       next(err);
     } else {
-      res.json({});
+      res.end();
     }
   });
 });
