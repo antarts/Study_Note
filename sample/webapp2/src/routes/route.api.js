@@ -23,6 +23,9 @@ router.patch('/posts/:id', auth.adminRequired, post.update);
 /* POST signup user */
 router.post('/signup', user.signup);
 
+/* GET users lists. */
+router.get('/activeAccount', user.activeAccount);
+
 /* POST signin user */
 router.post('/signin', user.signin);
 
