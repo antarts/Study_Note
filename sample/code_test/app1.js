@@ -194,12 +194,169 @@
 
 /* 数据结构 */
 
+// const print = console.log
+
+// function isObject(value) {
+//   const type = typeof value
+//   return value != null && 
+//   (type == 'object' || type == 'function')
+// }
+
+// print(isObject({}))
+
+// print(isObject(new Number(1)))
+
+/* end */
+
+// const print = console.log
+
+// function mapObject(object, iteratee) {
+//   const props = Object.keys(object)
+//   const result = new Array(props.length)
+
+//   iteratee || (iteratee = value => value)
+
+//   props.forEach((key, index) => {
+//     result[index] = iteratee(object[key], key, object)
+//   })
+//   return result
+// }
+
+// const obj = {a: 1, b: 2}
+
+// print(mapObject(obj))
+
+// print(mapObject(obj, (value) => {
+//   return value
+// }))
+
+// print(mapObject(obj, (value, key) => {
+//   return key + value
+// }))
+
+/* end */
+
+// const print = console.log
+
+// function mapToArray(map) {
+//   let index = -1
+//   const result = new Array(map.size)
+
+//   map.forEach((value, key) => {
+//     result[++index] = [key, value]
+//   })
+//   return result
+// }
+
+// const map = new Map()
+
+// let keyString = 'a string';
+// let keyObj = {};
+// let keyFunc = function () { };
+
+// map.set(keyString, "value associated with 'a string'");
+// map.set(keyObj, 'value associated with keyObj');
+// map.set(keyFunc, 'value associated with keyFunc');
+
+// print(map)
+
+// print(mapToArray(map))
+
+/* end */
+
+// String({score: 100})
+
+// Number({a: 1})
+
+// Boolean({a: 1})
+
+// var obj1 = {name: 'xiaoming', score: 100}
+// var obj2 = {name: 'xiaohua', score: 80}
+// obj1 + obj2
+
+// const print = console.log
+
+// var obj1 = {
+//   name: 'xiaoming',
+//   score: 100,
+//   [Symbol.toPrimitive](hint) {
+//     console.log(`hint: ${hint}`);
+//     return hint == "default" ? this.valueOf() : this.toString();
+//   }
+// }
+
+// var obj2 = {
+//   name: 'xiaohua',
+//   score: 80,
+//   [Symbol.toPrimitive](hint) {
+//     console.log(`hint: ${hint}`);
+//     return hint == "default" ? this.toString() : this.valueOf();
+//   }
+// }
+
+// obj1.toString = function () {
+//   console.log('obj1.toString')
+//   return this.name
+// }
+
+// obj2.toString = function () {
+//   console.log('obj2.toString')
+//   return this.name
+// }
+
+// obj1.valueOf = function () {
+//   console.log('obj1.valueOf')
+//   return this.score
+// }
+
+// obj2.valueOf = function () {
+//   console.log('obj2.valueOf')
+//   return this.score
+// }
+
+// print(obj1 + obj2)
+
+// print(obj1 - obj2)
+
+// print(obj1 > obj2)
+
+// print(obj1 == obj2)
+
+/* end */
+
 const print = console.log
 
-function isObject(value) {
-  const type = typeof value
-  return value != null && 
-  (type == 'object' || type == 'function')
+function slice(array, start, end) {
+  let length = array == null ? 0 : array.length
+  if (!length) {
+    return []
+  }
+  start = start == null ? 0 : start
+  end = end === undefined ? length : end
+
+  if (start < 0) {
+    start = -start > length ? 0 : (length + start)
+  }
+  end = end > length ? length : end 
+  if (end < 0) {
+    end += length
+  }
+  length = start > end ? 0 : (end - start)
+
+  let index = -1
+  const result = new Array(length)
+  while (++index < length) {
+    result[index] = array[index + start]
+  }
+  return result
 }
 
-print(isObject({}))
+print(slice([1, 2, 3, 4, 5, 6, 7], 2))
+
+print(slice([1, 2, 3, 4, 5, 6, 7], 2, 5))
+
+print(slice([1, 2, 3, 4, 5, 6, 7], 2, 10))
+
+print(slice([1, 2, 3, 4, 5, 6, 7], -2, 11))
+
+print(slice([1, 2, 3, 4, 5, 6, 7], -6, -1))
